@@ -1,14 +1,29 @@
+This is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
+
+The official material can be found [here][a7c749f4]
+
+  [a7c749f4]: http://support.huawei.com/learning/trainFaceDetailAction?lang=en&pbiPath=term1000025174&courseId=Node1000007639 "link to Huawei web"
 
 
-## Certificate Main Objetives
+
+
+## Certification Main Objetives
 
 - Cloud computing concepts and background
 - Cloud Computing deployment model
 - Cloud computing business model
 - Cloud computing key technologies
 - Cloud computing values
+- Describe the basic concept and values of Cloud Computing
+- Be familiar with the features and concept of virtual technologies
+- Be familiar with the basic structure of Huawei Cloud Computing solution
+- Describe the hardware structure of FusionCloud
+- Be familiar with the software structure of FusionCloud
+- Master the configuration of Huawei Cloud Computing hardware
+- Master the configuration of Huawei Cloud Computing software
+- Master the configuration of Huawei Cloud Computing service
 
-## Índice
+## Index
 
   - OHC11081 Cloud Computing Concepts and Values
   - OHC11082 Virtualization Technology
@@ -102,3 +117,7 @@ Huawei cloud solutions supports:
 
 ##### cloud computing Application and examples
 ![cloud computing growth](image3.jpeg)
+
+- Amazon EC2 supports VM leasing used in Linux and Windows, data processing, and storage leasing.
+- Microsoft azure provides the VM development platform Visual Studio, which is based on Windows server and Linux systems.
+- Alibaba cloud server, Elastic Compute Service (ECS).
