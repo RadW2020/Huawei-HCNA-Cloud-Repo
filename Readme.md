@@ -42,7 +42,7 @@ Deployment methods: private (organizations), public (telecom carrier), community
   - Web 2.0 works the idea of let the users be creators and authors on the internet.
 
 ##### Key technologies:
-![Key technology](image1.jpg)
+![Key technology](image1.jpeg)
 
 - Servers, large memory and high [IOPS](https://en.wikipedia.org/wiki/IOPS).
 - Storage devices, high IOPS, linked cloning, thin provisioning and snapshot functions.
@@ -92,7 +92,7 @@ The virtualization supports scalability of servers:
 You can log in to the system desktop using various terminals at any time. The data and desktops uniformly run and are stored on the data center. The [Hot Swap](https://en.wikipedia.org/wiki/Hot_swapping) mode is supported for terminal replacement.
 
 ##### In-service upgrade and expansion
-![upgrade](image2.jpg)
+![upgrade](image2.jpeg)
 
 ##### Unified management
 Huawei cloud solutions supports:
