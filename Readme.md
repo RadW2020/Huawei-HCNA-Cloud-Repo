@@ -135,4 +135,29 @@ Virtualization converts "physical" resources into "logical" resources.
 
 Concepts: Host machine(physical), guest machine (virtualized), Guest Os and Host OS, Hypervisor(VMM).
 
-Hosted vistualization:
+- Hosted virtualization: virtualization management software functions as a common application running on the underlying OS.
+- Bare-metal virtualization: Hypervisor is a VM monitor that runs directly on physical hardware.
+- OS-level virtualization: The host OS allocates hardware resources and separate virtual servers from each others.
+
+
+Virtualization covers computing virtualization, storage virtualization, network virtualization.
+
+#### Types of computing virtualization
+- CPU virtualization: Multiple VMs share the same CPU. Sensitive instructions in VMs are intercepted, simulated and executed.
+- Memory virtualization: Multiple VMs share the same physical memory and they need to be isolated from each other.
+- I/O virtualization: Multiple VMs share the same physical device, such as a disk or a network adapter. Those I/O devices are multiplexed using time-division technology.
+
+##### CPU virtualization
+- VMs share the same CPU. Using timer interrupts, a mechanism similar to that used on raw OSs, instructions are trapped to the VMM upon triggering "interrupt" and are then scheduled based on the scheduling policy.
+- Hypervisor get the instruction and put them into queue.
+- An x86 processor has four priorities in protected mode, Ring 0 (for OS kernel), Ring 1 (OS Services), Ring 2 (OS services), and Ring 3 (applications).
+- The typical virtualization approaches are privilege deprivileging and trap-and-emulation. Guest OSs run at a non-privileged level (deprivileging) whereas the VMM runs at the highest privilege level (full control of system resources).
+
+##### Memory virtualization
+![Memory virtualization](image4.jpeg)
+The key point of memory virtualization lies in introducing a new layer of address space, that is, the physical address space of clients. Clients think that they run in the actual
+physical address space; however, they access physical addresses through the VMM in fact.
+The VMM saves the mapping table that records relationships between clients' address spaces and physical machines' address spaces.
+
+##### I/O virtualization
+The VMM intercepts the client OSs'access requests on devices and uses software to simulate itself as the actual device.
