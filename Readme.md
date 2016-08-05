@@ -9,11 +9,6 @@ The official material can be found [here][a7c749f4]
 
 ## Certification Main Objetives
 
-- Cloud computing concepts and background
-- Cloud Computing deployment model
-- Cloud computing business model
-- Cloud computing key technologies
-- Cloud computing values
 - Describe the basic concept and values of Cloud Computing
 - Be familiar with the features and concept of virtual technologies
 - Be familiar with the basic structure of Huawei Cloud Computing solution
@@ -34,7 +29,7 @@ The official material can be found [here][a7c749f4]
   - OHC11087 FusionAccess Architecture Principles
   - OHC11088 FusionCloud Solution Deployment
 
-### Cloud Computing Concepts and Values
+# Cloud Computing Concepts and Values
 Key characteristics of cloud computing are On-demand self-service, Location-independent resource pool (ubiquitous network access over the Internet), Pay per use, Elasticity.
 
 
@@ -53,7 +48,7 @@ Deployment methods: private (organizations), public (telecom carrier), community
   - Software as a Service (SaaS). Applications wich run on cloud computing infraestructure. Such as CRM, ERP and OA.
 
 ##### Other concepts:
-  - Web 1.0 is the idea of users obtaining information through web browsers.
+  - Web 1.0 is the idea of users obtaining in*formation through web browsers.
   - Web 2.0 works the idea of let the users be creators and authors on the internet.
 
 ##### Key technologies:
@@ -121,3 +116,23 @@ Huawei cloud solutions supports:
 - Amazon EC2 supports VM leasing used in Linux and Windows, data processing, and storage leasing.
 - Microsoft azure provides the VM development platform Visual Studio, which is based on Windows server and Linux systems.
 - Alibaba cloud server, Elastic Compute Service (ECS).
+
+##### Huawei Cloud Computing Solutions
+Huawei FusionCloud solution is composed by four products:
+  - FusionSphere. Cloud OS. Optimum cost effectiveness. Horizontal fusion.
+  - FusionCube. Converged Appliance. Bussiness agility. Vertical Fusion.
+  - FusionAccess. Desktop Cloud. Secure, efficient, user experience.
+  - FusionInsight. Big data analysis. Easy-to-use, secure, reliable.
+
+![Huawei desktop cloud case](image4.jpeg)
+
+# Virtualization technology
+Virtualization converts "physical" resources into "logical" resources.
+- Zoning. Multiple VMs can run on the same physical server.
+- Isolation. VMs on the same server are isolated from each other.
+- Encapsulation. Each VM is saved in a file. You can migrate and copy the file in order to migrate and copy the VM.
+- Hardware-independence. VMs can run on any server without requiring any modifications on servers.
+
+Concepts: Host machine(physical), guest machine (virtualized), Guest Os and Host OS, Hypervisor(VMM).
+
+Hosted vistualization:
