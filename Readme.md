@@ -1,4 +1,4 @@
-This is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
+  This is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
 
 The official material can be found [here][a7c749f4]
 
@@ -161,3 +161,40 @@ The VMM saves the mapping table that records relationships between clients' addr
 
 ##### I/O virtualization
 The VMM intercepts the client OSs'access requests on devices and uses software to simulate itself as the actual device.
+
+The front-end driver (blkfront) forwards data to the back-end driver (blkback) through the interfaces provided by the VMM.
+Using the back-end driver, VMs'data is processed in a time-division multi-channel manner.
+
+Discover a device:
+- The device information about all VMs is saved on the XenStore of Domain0.
+- The XenBus (a paravirtualization driver for Xen) on VMs communicates with the XenStore of Domain0 to obtainc device information.
+- The front-end driver for the device is loaded.
+
+Intercept device data:
+- The front-end device forwards data completely to the back-end driver through the interfaces provided by the VMM.
+- The back-end driver processes VM data on a time and channel basis.
+
+#### Storage virtualization
+Definition:
+- Logical layer storage from physical storage devices.
+- Admins adjust resources.
+- Centralization of storage devices.
+
+##### Raw Device + Logical Volume
+- Storage devices (SAN or local disks) are mounted on hosts. Is the most direct control method. Raw devices are divided into blocks of 1Gb.
+- Simple I/O paths and highest read & write peformance.
+- No support for advanced services.
+
+
+##### Storage Device Virtualization.
+- Advanced storage functions such as thin provisioning, snapshot, and linked clone.
+- Only for Huawei Advanced SAN and FusionStorage.
+
+
+##### Host storage virtualization + File System
+- Allows hosts to manage VM disk files through file system.
+- Support for heterogeneous storeage devices and servers.
+- Rich advanced functions, independent of hardware devices.
+- Performance loss due to long I/O paths.
+
+#### Network Virtualization
