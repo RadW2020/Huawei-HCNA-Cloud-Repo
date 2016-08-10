@@ -198,3 +198,46 @@ Definition:
 - Performance loss due to long I/O paths.
 
 #### Network Virtualization
+
+* A server can be virtualized into many hosts, meeting the inter-VM communication requirements.
+* Dynamic migration of VMs.
+
+##### Large Layer 2 Network and Technology
+* Fiber Channel over Ethernet (FCoE) maps fiber channels (FCs) to Ethernet and inserts FC information to to Ethernet packets. Dedicated FCs are not necessary.
+* FCoE transmit over the same cable LAN and FC SAN data.
+* I/O integration maximizes return of investment (ROI).
+* Data Center Bridging (DCB) build a losless Ethernet network.
+* Both Ethernet and the FCoE protocol can run properly over Ethernet networks.
+
+
+* SPB: Shortest Path Bridging
+* TRILL: Transparent Interconnection of Lots of Links
+
+Feature | SPB   | TRILL
+--      |---    |--
+Camp    |  Huawei, Avaya, HP, Ericsson and AL | Cisco, Huawei, Brocade, HP, IBM  
+VM live migration  | supported  |  Supported
+Multi-tenant      | 16 million  (24bit) | 4000 (12bit)
+Convergence Speed  | Slow  | Fast
+Compatibility  | Not supported   | Supported  (with existing switches)
+
+##### Virtual switching
+![Virtual switching](image6.jpeg)
+* vSwitch (virtual switch) implements Layer 2 Ethernet switching
+functions on servers **CPUs**, including VM switching, QoS control, and security isolation.
+* eSwitch (embedded switch) implements Layer 2 Ethernet switching
+functions on servers **network** adapters, including VM switching, QoS control, and security
+isolation.
+
+##### Huawei's network virtualization solution
+* Implements a central management for distributed virtual switching using vSwitches or eSwitches.
+* Supports large Layer 2 solutions provided by network devices.
+
+#### VMs
+* A VM has a built-in OS, which is specified byt the administrator when delivering the isntructions for creating VMs.
+* I is also possible to use a ISO file to install an OS.
+
+Example of the process:
+![creating a VM](image7.jpeg)
+
+# Huawei FusionCloud Solutions
