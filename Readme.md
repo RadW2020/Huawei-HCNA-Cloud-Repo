@@ -234,10 +234,27 @@ isolation.
 * Supports large Layer 2 solutions provided by network devices.
 
 #### VMs
-* A VM has a built-in OS, which is specified byt the administrator when delivering the isntructions for creating VMs.
+* A VM has a built-in OS, which is specified by the administrator when delivering the instructions for creating VMs.
 * I is also possible to use a ISO file to install an OS.
 
 Example of the process:
 ![creating a VM](image7.jpeg)
 
 # Huawei FusionCloud Solutions
+FusionCloud is the general brandname for Huawei cloud computing solution. It includes **FusionSphere** cloud operating system(OS), **FusionCube** converged appliance, **FusionAccess** desktop cloud and **FusionInsight** big data analysis.
+
+### Huawei FusionSphere Solution
+It includes the following modules:
+* UltraVR: manages remote disaster recovery (DR).
+* HyperDP: manages the backup implementing VM-level backup management.
+* FusionCompute: virtualizes computing resources. VMs are created using FusionCompute.
+* FusionStorage: virtualizes storage resources integrating local disks on generic servers, providing distributed [Server SAN](http://www.tomsitpro.com/articles/server-san-architecture-explained,2-768.html) capabilities.
+
+![FusionSphere Version Overview](image8.jpeg)
+
+The FusionSphere Operation Insight (SOI) implements advanced analysis on running systems. It collects and display VM performance indicators in the FusionSphere cloud system, models and analyzes collected data, and provides suggestions on system performance management. Displays indicators ins terms of health, risks, and efficiency.
+Fusion Sphere SOI not only displays historical data, but also predicts future trends.
+
+### Huawei FusionCube Solution
+Fusioncube has three main features: converged, simple, and powerful.
+Converged means that integrates computing, storage, network resources, virtualization platforms, databases, and application software.
