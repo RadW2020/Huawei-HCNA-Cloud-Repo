@@ -309,7 +309,7 @@ Each chassis is configured with two MM190s inactive/standby mode. They support a
 * CH121 half-width. 2x8-core E5-2690 CPU. 24 x DIMM, max of 768GB
 * CH222 full-width. idem + 15x2.5-inch disks, suitable for big data and distributed processing.
 * CH240 full-width. Four E5-4600 CPUs. 48 x DIMM, max of 1.5 TB. 8x2.5-inch disks suitable for database applications.
-* CH240 full-width. Four E7-4800 CPUs. 32 X DIMM, max of 1.0 TB. 8x2.5-inch disks, max of 8 TB suitablee for database applications.
+* CH240 full-width. Four E7-4800 CPUs. 32 X DIMM, max of 1.0 TB. 8x2.5-inch disks, max of 8 TB suitable for database applications.
 
 **E9000 Switch Modules**
 From 10GE to 40GE and 100GE. Each E9000 chassis provides 128 10GE upstream ports, and support various interfaces types, such as Ethernet, IB, and FC.
@@ -320,3 +320,109 @@ A transparent interconnection of lots of links (Trill) can meet random VM migrat
 The mezz module is used for I/O expansion and supports NICs and SAS cards.
 
 ##### RH2288H server
+It supports HPC, databases, virtualization, basic enterprise applications, and telecommunication service applications.
+
+### Storage devices
+##### OceanStor 5600/5800 V3
+* Supports 16Gbit/s FC and 10 Gbit/s FCoE host ports. Up to 40 GB/s of bandwith, 4 TB cache capacity, and 8 PB storage capacity.
+* SAN and NAS converged to reduce total cost of ownership (TCO).
+* Scabalability up to eight controllers.
+* Storage 5600 V3 5800 V3 uses disk and controller separation architecture (3U independent engine).
+* Controller module and BBUs support redundancy and provide high availability.
+* Controller enclosures can be managed in a cascading manner.
+* All ports use a modular design, facilitating replacement and upgrade.
+* 4 U of 75 x 3.5-inch disks in a 5 row x 15 columns
+* Disk enclosures connect to controller enclosures using Mini SAS HD cables or are cascaded to other disk enclosures to implement capacity eexpansion.
+
+### Switches
+##### S5700 Series GE Switch
+* ESD: Electrostatic discharge jack
+* Developed by Huawei based on versatile routing platform (VRP)
+* dual power supply sockets and hardware-based Ethernet OAM.
+* 10 GE uplink capacity.
+* Energy Efficient Ethernet (EEE).
+* S5700 supports intelligent stack (iStack).
+
+##### S6700 high-density full-10GE box-type Switch
+For long distance stack, a maximun of 40 Km and 48 ports in 1 U.
+
+### TCs
+Huawei can provide of different Thin Clients. Some TC can be hardened, such as forbidding use of USB flash drives.
+
+### Typical Hardware Deployment Modes of Cloud Computing
+* Typical virtualization configuration: E9000 (Half-width blade) + IP/FC SAN+GE /10GE switches, and software FusionCompute+FusionManager.
+* Virtualization configuration: RH2288H + IP/FC SAN+GE/10GE switches.
+* When FC SAN are used for networking, FC switches need to be added.
+
+##### Standard desktop Cloud
+E9000 + IPSAN + GPU(optional) + GE/10GE switches + TCs(optional), software FusionCompute + FusionManager + FusionAccess, and 5000 VMs in a cluster.
+
+The standard desktop solution does not support automatic deployment and preinstallation.
+
+GPU solution: Each full-width blade supports four Q2000 GPUs or four Q4000 GPUs. A 1.5 U blade supports four GPUs.
+
+##### Desktop Cloud Appliances
+* RH2288 + FusionStorage + GE/10GE switches + TCs(optional), and software FusionCompute + FusionManager + FusionAccess + FusionStorage.
+The appliance supports automatic deployment and pre-installation and 3000 VMs in a cluster.
+* E9000 (full-width) + FusionStorage + GE/10 GE switches + TCs (optional), and software FusionCompute + FusionManager + FusionAccess + FusionStorage.
+The appliance supports automatic deployment and pre-installation and 3000 VMs in a
+cluster.
+
+## FusionCompute Architecture
+![FusionCompute](image11.jpeg)
+* Resource virtualization virtualizes physical resources. For example, one 2.4 GHz CPU can be virtualized to three vCPUs with the specifications of 1.2 GHz, 0,8 GHz, and 0.4 GHz, respectively for three VMs.
+* *FusionManager is cloud management* software.
+* *FusionCompute virtualizes* x86 servers, storage and network devices into elastic IT resource pools.
+
+#### FusionCompute Customer Values
+##### Improving Resource utilization
+Integration ratio: for example, 70 VMs are created on six blade servers, the integration ratio is 11:1 (round up 70/6).
+##### Improving the availability
+High availability (HA). This feature minimizes the downtime caused byt routine maintenance.
+Fault Tolerance (FT) ensures an expected performance in the case of one or more failed components
+#### FusionCompute System Architecture
+* Virtual Resource Management (VRM)
+* Virtual Node Agent (VNA)
+* Management Interface, such as WebUI.
+* Policy-based distributed resource management services.
+* REST APIs are open source management interfaces for WebUI.
+* Basic computing resource management services.
+* Data service provides data access services.
+* Connectivity services allows upper-layer management to gain access to underlying CNAs and databases.
+* Databases uses Huawei-developed GaussDB database to store various management data.
+
+##### Flexible and Scalable
+* VRM is the FusionCompute management node, which is responsible for resource allocation
+and scheduling, and provides unified O&M, resource monitoring, and resource management
+functions.
+* CNA implements virtualization.
+  * Each logical cluster supports 128 physical servers.
+  * Each logical cluster supports 3000 VMs.
+  * HA design and VRM (on VMs or physical servers) deployed in active/standby mode ensure system availability.
+  * Large-capacity design is used to cascade a max of 16 VRMs to support 4096 physical servers and 80,000 VMs.
+* A pair of VRM nodes manages small-scale data centers to ensure thin provisioning. Large-scale data centers are managed by multiple cascaded VRMs.
+* Two VRM nodes are promoted as the Primary Domain Coontroller (PDC). The web clients of all VRMs must be connected to the VRMs functioning as the PDC.
+
+#### FusionCompute Features
+**Compatibility with Special OSs in the industry**
+Xen architecture and PV driver.
+Huawei has paravirtualization (PV) driver developing capabilities, allowing FusionCompute to be compatible with new OSs.
+FusionCompute is compatible with mainstream Windows and Linux OSs.
+**Flexible VM Configuration Adjustment**
+- Quality of Service (QoS) is used to measure transmission quality.
+- The VM hot CPU and memory add functions must be supported by OSs. Therefore, FusionCompute does not support hot CPU and memory remove.
+- FusionCompute supports online capacity expansion and disk reduction.
+- Vertical scalability (scale-up): improves the VM resource configurations to provide better performance and QoS.
+- Horizontal expansion (scale-out): adds nodes to improve the performance and Qos of the entire cluster.
+
+**Memory Overcommitment, Increasing the VM Density by 50%**
+* The memory over commitment function is configurable.
+
+* Memory sharing and copy on write: The VMs sharing memory must run the same OS.
+  * Memory sharing enables VMs to share the same physical memory space. In this case, the memory is read-only for these VMs.
+  * Copy on write: If data must be written to the memory space, VMs create another memory space and modify the mapping.
+
+* Memory swapping enables VM data that has not been accessed for a long time to be moved from the VM's memory space to a storage device, and the system creates a mapping for this movement path. The data is moved back to the
+VM's memory space when the VM needs the data. The unused memory is swapped to the VM storage space. The large memory pages are supported in this technology.
+* Memory balloon. The Hypervisor uses the memory bubble technology to release memory of idle VMs for VMs with a high memory usage to use.
+* The balloon driver applies for an available memory page in the source VM, grants the page to the target VM according to the grant table, and updates the mapping between the physical addresses and VM machine addresses in the table.
