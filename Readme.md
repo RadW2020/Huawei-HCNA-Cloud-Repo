@@ -210,7 +210,7 @@ Definition:
 * Both Ethernet and the FCoE protocol can run properly over Ethernet networks.
 
 
-* SPB: Shortest Path Bridging
+* SPB: Shosrtest Path Bridging
 * TRILL: Transparent Interconnection of Lots of Links
 
 Feature | SPB   | TRILL
@@ -257,4 +257,66 @@ Fusion Sphere SOI not only displays historical data, but also predicts future tr
 
 ### Huawei FusionCube Solution
 Fusioncube has three main features: converged, simple, and powerful.
-Converged means that integrates computing, storage, network resources, virtualization platforms, databases, and application software.
+**Converged** means that integrates computing, storage, network resources, virtualization platforms, databases, and application software.
+The core of the FusionCube integration is the distributed cloud computing software (FusionCompute, FusionManager and FusionStorage).
+![FusionSphere Version Overview](image8.jpeg)
+**Simple** means that FusionCube supports resource sharing, and capacity expansion. The software and hardware are all Huawei-developed products.
+The distributed cloud computing software virtualzes different hardware resources into a unified pool of virtual resources.
+FusionCube supports linear and smooth expansion in capacity of blades, subracks and cabinets, which ensures uninterrupeted operation of upper-layer applications irrespective of changes in hardware.
+**Powerful**. Software-defined storage architecture(FusionStorage) that eliminates I/O performance bottlenecks.
+FusionStorage employs distributed server SAN architecture, high-speed IB networks and SSDs.
+FusionCube can be used for desktop virtualization, Enterprise cloud data centers and Database acceleration.
+
+
+### Huawei FusionAccess Solution
+One FusionAccess can handle up to 20.000 virtual desktops.
+
+## Huawei Cloud Computing Hardware System
+#### Cloud Computing Hardware Overview
+Huawei devices are compatible with mainstream servers and storage devices from vendors such as IBM, HP, and Dell.
+It is composed by TCs on the user side; and on the data center side it has server, storage and network.
+### servers
+##### E9000 server
+This blade server integrates elastic computing, storage, and networking resources.
+It features reliability, availability and serviceability (RAS), high computing density, energy saving, high-midplane bandwith, intelligeent management and service, elastic configuration, flexible expansion for computing and storage resources, low latency, and network acceleration.
+
+###### High-Performance compute mode:
+* Supports full series of Intel x86 CPUs.
+* Supports compute nodes of various specifications: 2-socket, 4-socket, half-width, and full-width compute nodes.
+* Supports various network ports on mezz modules and acceleration cards.
+
+###### Built-in Large-capacity storage:
+* A half-width storage resource expansion module is integrated with half-width compute node to form a full-width compute node.
+* Supports fifteen 2.5-inch Serial Attached SCSI (SAS) or Serial Advanced Technology Attachment (SATA) or Solid-state drives (SSDs). SCSI refers to Small Computer System Interface.
+* Supports disk installation through removable drive trays and hot swap.
+* Supports power-off protection for the write cache.
+
+###### Hardware Overview
+![E9000 Hardware Overview](image10.jpeg)
+* 8 full-width comopute nodes or 16 half-width for flexible slot configuration.
+* A half-width slot supports a compute node with two sockets and 24 DIMMS, or two sets two sets of two sockets and eight DIMMs.
+* A full-width slot supports a compute node with four sockets and 48 DIMMs.
+* A chasis provides the computing density of 64 processors or 768 cores with a maximum memory capacity of 12 TB.
+* The maximum mid-plane switch capacity reaches 15.6 Tbit/s.
+* Four switch modules (in two pairs) support Ethernet, fibre channel (FC), fibre channel over Ethernet (FCoE), and Infiniband(IB) swithching protocols and provide I/O ports on panels.
+
+**E9000 Management Module**
+The MM910 manages E9000 blade server chassis and compiles with IPMI v2.0 specifications. It provides functions including remote startup, shutdown, reset, logging, hardware monitoring, SOL, KVM over IP, virtual media, fanmonitoring, and PSU monitoring. It also supports 1+1 redundancy.
+The MM910 provides local KVM ports for server management.
+Each chassis is configured with two MM190s inactive/standby mode. They support active/standby swithover and hot swap.
+
+**E9000 compute Nodes**
+* CH121 half-width. 2x8-core E5-2690 CPU. 24 x DIMM, max of 768GB
+* CH222 full-width. idem + 15x2.5-inch disks, suitable for big data and distributed processing.
+* CH240 full-width. Four E5-4600 CPUs. 48 x DIMM, max of 1.5 TB. 8x2.5-inch disks suitable for database applications.
+* CH240 full-width. Four E7-4800 CPUs. 32 X DIMM, max of 1.0 TB. 8x2.5-inch disks, max of 8 TB suitablee for database applications.
+
+**E9000 Switch Modules**
+From 10GE to 40GE and 100GE. Each E9000 chassis provides 128 10GE upstream ports, and support various interfaces types, such as Ethernet, IB, and FC.
+IB QDR/FDR and Infiniband quad data rate/fourteen data rate.
+A transparent interconnection of lots of links (Trill) can meet random VM migration, non-blocking, low-delay data forwarding, multi-tenant, and large network scale.
+
+**Mezz Modules on E9000 Compute Nodes**
+The mezz module is used for I/O expansion and supports NICs and SAS cards.
+
+##### RH2288H server
