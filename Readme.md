@@ -426,3 +426,113 @@ FusionCompute is compatible with mainstream Windows and Linux OSs.
 VM's memory space when the VM needs the data. The unused memory is swapped to the VM storage space. The large memory pages are supported in this technology.
 * Memory balloon. The Hypervisor uses the memory bubble technology to release memory of idle VMs for VMs with a high memory usage to use.
 * The balloon driver applies for an available memory page in the source VM, grants the page to the target VM according to the grant table, and updates the mapping between the physical addresses and VM machine addresses in the table.
+
+**VM Live Migration**
+* heterogeneous CPUs indicate different CPUs from the same vendor.¿?
+* Memory compression technology is used to compress the memory data, reducing network bandwith.
+* FusionCompute uses the zero-memory compression technology to store only copy of the zero-memory pages (which is simmilar to deduplication).
+
+**VM HA** (High Availability)
+FusionSphere 3.1 supports VM HA.
+FusionSphere enhanced the HA mechanism by introducing VRM-independent HA. The enhancement enables a single node to be automatically elected as the master node when you create a HA cluster. The master node maintains management and
+storage heartbeats with slave nodes. A loss of the heartbeat enables the master node to trigger VM HA. Management plane heartbeat is implemented by heartbeat packet transmission, and storage plane heartbeat is implemented by writing data to files. The loss of both management and storage heartbeats will trigger VM HA. Users can configure whether to use the management plane or non-management plane to detect storage heartbeats based on the network plane loads.
+  * Limitation 1: The VRM-independent HA can be used only when all hosts in the cluster use Virtual Image Management System (VIMS) storage.
+  * Limitation 2: To ensure reliability, a cluster that has VRM-independent HA enabled can accommodate a maximum of 32 hosts.
+
+**FT** (Fault Tolerance)
+Differences between FT and HA:
+  * FT synchronizes data between the active and standby nodes in real time. Short time and High costs. Only applies to key systems with HA requirements.
+  * HA uses the dynamic scheduling policy, which migrates the VM that is faulty to the destination host. Slower but low cost.
+
+**Dynamic Resource Scheduling**
+* Supports manual or automatic configuration of scheduling policies.
+* The load balancing is implemented in a logical cluster.
+* In Huawei server solution, a logical cluster includes 128 servers.
+* If a performance load of all VMs in a cluster is lower than the scheduling baseline, the scheduling is not enabled, even if the load variance exceeds the threshold specified by users.
+
+**Dynamic Power Management**
+* DPM policies can be configured and DPM takes effect only when DRS is configuredd for the cluster. DRS is required to migrate VMs when the system executes the DPM policies.
+* The thresholds ranging from coservative to radical indicate the energy-saving policies with different sensitivities.
+
+**Fine-Grained  Resource Management of QoS, Ensuring VIP Service Availability**
+* QoS is used to measure the transmission quality.
+* The CPU QoS cannot temporarily add CPUs to a VM.
+* The memory and network QoS mechanism are similar.
+
+**Architecture of NUMA Affinity-based Scheduling**
+* NUMA. Each physycal computer has multiple CPUs connected by a front side bus. The CPUs and the corresponding memory modules constitute a NUMA system.
+* A CPU and its interconnected memory constitute a node.
+* RAM. Random Access Memory.
+* NUMA nodes are introduced in physical servers to improve memory access efficiency of CPUs. A CPU can achieve its maximun memory access efficieny when accesing memory within its own NUMA node. But, if any VM OS or applcation requires a second NUMA node, the overall performance will deteriorate. In this case, Guest NUMA, and enhanced NUMA feature, enables that the NUMA topology is transparently transmitted to the VM and enables VM to preferably use memory resources on one NUMA node, thereby improving memory performance.
+
+**GPU Hardware Virtualization**
+Technical Principle:
+Multiple vGPUs are created on a physical GPU, which can use Direct Memory Access (DMA) to directly obtain the 3D commands delivered to the vGPU driver by graphics applications. After the GPU renders the graphics, it stores the graphics to the video RAM of each vGPU. Then the vGPU driver in the VMs can directly captuure rendering data from the physycal memory.
+
+**Remote CD/DVD-ROM Driver Mounting**
+A VM can read data of the CD-ROM drive attached to the host.
+
+**Virtual Cluster File System - VIMS**
+The Virtual Image Management System (VIMS) has the following features:
+* Opensource OCFS2
+* Manages the VM image and configuration files as files
+* Uses jbd2 to record logs
+* Uses distributed lock mechanism to ensure data read/write consistency
+* Uses the disk heartbeat to detect the connection status with the SAN
+* Uses the network heartbeat to detect the connection status between the nodes.
+
+Thin provisioning: The allocated space is separated from the actual space.
+
+**Storage Live Migration, preventing Service Downtime During Storage System Maintenance**
+* Supports data migration between clusters.
+* implements power-off maintenance for the storage system.
+* Optimizes VM storage I/O performance.
+
+**Storage Thin Provisioning, Dramatically Reducing Storage Investment**
+* The disk space size a VM user can use is the configured space only. The space that can be allocated to a VM is adjustable based on actual usage.
+* Supports storage reclamation.
+* Reduces the storage cost up to 40%
+* Large storage capacity and low IOPS requirements.
+* Compared with common storage modes, thin provisioning allows a storage device to support more VMs. Therefore, the IOPS of a single VM reduces.
+
+**Linked clone Technology, Improving Management Efficienci and Saving storage Space**
+* Multiple linked clones can share one master disk which requires cache acceleration, and each linked clone must also have one delta disk. If multiple users share a master disk, the costs can be reduced. The size of a delta disk is about
+1/3 that of the master disk. Therefore, the costs can be reduced by 60%.
+* The test period is 12 seconds.
+
+**RDM for Storage Resources**
+* Raw Device Mapping (RDM) allows VMs to directly access a physical storage device.
+* SCSI is a protocol to connect a host to a storage device, in a distance of 25 meters or shorter.
+* Logical Unit Number(LUN) is a logical disk that comprises all or some physical disks on a SAN storage device.
+
+
+**Support for VXLAN**
+VXLAN adopts an outer User Datagram Protocol (UDP) tunnel as a data link layer
+and transfers original data packets as tunnel payloads. With the outer UDP tunnel,
+inner payload data can be quickly transferred on the layer 2 and layer 3 networks.
+* New packet format: VXLAN outer encapsulation (tunnel) + Original inner payloads: Virtual network identifier (VNID) can be extended from 12 bits (4096) to 24 bits (16 million), and can be transmitted across the layer 2 network.
+* Virtual tunnel end point (VTEP), a logical entity, is used for VXLAN packet encapsulation and decapsulation. It is assigned an IP address of the physical network to connect to the physical network.
+* A VXLAN gateway is defined in the VXLAN network to implement communication between virtual networks and between virtual networks and physical networks.
+
+**10GE Gateway for Key Applications and I/O-Demanding Scenarios**
+Differente hardware devices support different technologies for VMs to communicate with external networks.
+* Common vNIC
+  * The hypervisor (dom0) implements network I/O between VMs in the same host, or VM's external data transmissions
+* VMDq-enabled NIC
+    * Huawei-developed intelligent network interface card (iNIC) supports the Virtual Machine Queues (VMDq) technology.
+    * VMDq implements layer 2 classifier/sorter using hardware. Data packages are directly sent to NIC queues based on MAC addresses and VLAN information without passing through the domain 0.
+* SR-IOV
+  * This allows physical NIC to create multiple physical functions (PFs), each of which provides multiple virtual functions (VFs).
+  * This feature allows a VM to exclusively use a VF which is derived from a PF. The VM can drectly use physical NIC without CPU overhead caused by virtual swithching.
+  * Live migration and snapshot features are unavailable on SR-IOV.
+
+#### FusionCompute specifications
+![FusionSpecs](image12.jpeg)
+![FusionSpecs](image13.jpeg)
+![Fusionspecs](image14.jpeg)
+
+
+As a mature open-source software product based on Xen, FusionCompute has made significant system simplification, security hardening, and function enhancement.
+Therefore, it consumes little resources and can be installed on a server with only 8 GB memory (48 GB is recommended) and 16 GB hard disk space.
+
+# FusionManager Architecture and Basic Principles
