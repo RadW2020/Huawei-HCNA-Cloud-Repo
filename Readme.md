@@ -29,7 +29,9 @@ The official material can be found [here][a7c749f4]
   - OHC11087 FusionAccess Architecture Principles
   - OHC11088 FusionCloud Solution Deployment
 
-# Cloud Computing Concepts and Values
+# 1 Cloud Computing Concepts and Values
+----------------------------------------------
+
 Key characteristics of cloud computing are On-demand self-service, Location-independent resource pool (ubiquitous network access over the Internet), Pay per use, Elasticity.
 
 
@@ -126,7 +128,8 @@ Huawei FusionCloud solution is composed by four products:
 
 ![Huawei desktop cloud case](image4.jpeg)
 
-# Virtualization technology
+# 2 Virtualization technology
+------------------------------------------------------
 Virtualization converts "physical" resources into "logical" resources.
 - Zoning. Multiple VMs can run on the same physical server.
 - Isolation. VMs on the same server are isolated from each other.
@@ -240,7 +243,8 @@ isolation.
 Example of the process:
 ![creating a VM](image7.jpeg)
 
-# Huawei FusionCloud Solutions
+# 3 Huawei FusionCloud Solutions
+-------------------------------------------------
 FusionCloud is the general brandname for Huawei cloud computing solution. It includes **FusionSphere** cloud operating system(OS), **FusionCube** converged appliance, **FusionAccess** desktop cloud and **FusionInsight** big data analysis.
 
 ### Huawei FusionSphere Solution
@@ -271,7 +275,8 @@ FusionCube can be used for desktop virtualization, Enterprise cloud data centers
 ### Huawei FusionAccess Solution
 One FusionAccess can handle up to 20.000 virtual desktops.
 
-## Huawei Cloud Computing Hardware System
+# 4 Huawei Cloud Computing Hardware System
+------------------------------------------------
 #### Cloud Computing Hardware Overview
 Huawei devices are compatible with mainstream servers and storage devices from vendors such as IBM, HP, and Dell.
 It is composed by TCs on the user side; and on the data center side it has server, storage and network.
@@ -368,7 +373,8 @@ The appliance supports automatic deployment and pre-installation and 3000 VMs in
 The appliance supports automatic deployment and pre-installation and 3000 VMs in a
 cluster.
 
-## FusionCompute Architecture
+# FusionCompute Architecture
+----------------------------------------------------------
 ![FusionCompute](image11.jpeg)
 * Resource virtualization virtualizes physical resources. For example, one 2.4 GHz CPU can be virtualized to three vCPUs with the specifications of 1.2 GHz, 0,8 GHz, and 0.4 GHz, respectively for three VMs.
 * *FusionManager is cloud management* software.
@@ -536,3 +542,112 @@ As a mature open-source software product based on Xen, FusionCompute has made si
 Therefore, it consumes little resources and can be installed on a server with only 8 GB memory (48 GB is recommended) and 16 GB hard disk space.
 
 # FusionManager Architecture and Basic Principles
+--------------------------------------------------
+FusionManager resolves the preceding problems of Managing heterogeneous virtualization platforms, for example, Huawei's FusionCompute and VMware's vCenter.
+
+Centrally managing physical devices, for example, monitoring servers, CPU temperatures, fans and receiving alarms.
+
+Secure Network Isolation.
+
+Allocating virtual resources.
+
+Centrally manage multiple and independent data centers.
+
+Introduction of the concept of VDC:
+A VDC is the primary unit of virtual resources managed in the FusionManager system. Several VDCs can manage the all the virtual resources.
+Each VDC can contain multiple users that are managed by the VDC admin, who can add or delete users to or from a VDC and configure each user.
+
+### Core features
+
+![FusionManager](image15.jpeg)
+
+* FusionManager provides:
+
+  * Resource pool management capability:
+    * Managing heterogeneous virtualization platforms, for example, Huawei's FusionCompute and VMware's vCenter.
+    * Centrally managing hardware, for example, physical servers from Huawei, HP, and Dell, storage devices (IP SAN and FusionCompute SAN), and network devices (switches and firewalls).
+    * Centrally managing alarms reported by various Huawei components and hardware devices.
+
+  * Multi-DC management:
+    * Multi-tenant management capability.
+    * Automatic application management capability. FusionManager supports application template creation and rapid provisioning of application templates.
+
+### Multi-Tenant ¬ Multi-VDC management
+A VDC is a unit of virtual resources assigned for tenants.
+
+A tenant is called an account in industry, a project in OpenStack, or an org in VMware. Usually, a tenant is a independent user or an enterprise.
+
+A VDC is a unit of virtual resources assigned for tenants.
+
+
+### Secure and Isolated Network Environment Provided by a VPC
+
+* Isolated environment: The VPC provides isolated VMs and network environments, meeting the requirements of isolating networks between various departments.
+
+* Comprehensive services: Each VPC can provide the independent virtual firewalls, elastic IP addresses, virtual LBs, security groups, super VLANs, IPSec VPNs, and NAT gateway services. Some of these functions are provided using virtual service appliance (VSA).
+
+* Flexible networking: The VPC provides multiple networking modes, such as direct network, routing network and internal network.
+
+* Convenient charging method: FusionManager provides pay-per-use and traffic-based resource charging modes.
+
+### Design Concepts
+![Virtualization Hierarchy](image16.jpeg)
+
+### Public vs Private Cloud Scenarios
+In a public cloud scenario, FusionManager allows the system admin to build, manage, and perform maintenance for a cloud platform.
+
+In a private is the same as public, but also allows to users to complete resource creation, resource management, and resource usage statistics.
+
+### Administrator - Service & Operation Administrators
+System Admins can be classified into the service administrtor and operation administrator.
+* The service admin is responsible for service operation.
+* The operation admin builds, manges, and performs maintenance for resource pools.
+
+### Tenant/User/Quota
+* A VDC is a unit of virtual resources assifned for tenants.
+  * A tenant is called an account in industry, a project in OpenStack, or an org in VMware.
+  * For example: Amazon is a well-known public cloud carrier. An individual customer or enterprise can register Amazon. In this case, the individual customer or enterprise is called a tenant.
+* Quota restricts the amount of resource used by tenants.
+* a user in FusionManager can play different roles in different VDCs, that is, a user can exist in multiple VDCs.
+
+### Architecture Reference
+FusionManager uses service-oriented Architecture (SOA) to support application delopment. The core components in SOA are described in the next picture:
+
+![FusionManger Components](image17.jpeg)
+* *Northbound*
+  * FusionManager probides multiples northbound interfaces, including RESTful, SOAP, Java SDK, and SNMP interfaces.
+* *Southbound*
+  * FusionManager can monitor and manage heterogeneous hardware devices. FusionManager also provides drivers required for new hardware based on its extensive monitoring framework. Users can put drivers into use after hot loading these drivers on FusionManager.
+  * FusionManager supports Huawei's FusionCompute and VMware's virtualization platforms using the drivers. FusionManager is planned to support Microsoft's Hyper-V soon.
+
+## FusionManager Core Functions
+The tree root is the menu name, and the modules below the  root are core functions.
+
+![FusionManager Core Functions](image18.jpeg)
+
+**Multi-DC Management**
+* FusionManager can be deployed in Top-Local mode when managing multiple data centers. This mode is also called distributed deployment architecture.
+* In this deployment mode, each Local FusionManager node manages the resources in a single data center. The Top FusionManger node itself uses the resources in the entire data center (by FusionSphere cascading on web client) to prvide tenants with services.
+* the *Top FusionManager administrator* and *Local FusionManager administrator* are *service admin* and *operation admin*, respectively.
+
+**Heterogeneus Virtual Resource Management**
+FusionManager uses separate drivers for various virtualization platforms, such as VM, disk, and network management.
+
+Huawei's FusionCompute virtualization uses REST interfaces to interact with drivers. VMware's vCenter uses VMware's SDK to interact with drivers.
+
+A third party can also use FusionManager's open REST interfaces to perform secondary development.
+
+**Hardware Device Management and Monitoring**
+* FusionManager monitors and manages servers, network devices (such as switches, firewalls, and load balancers), and storage devices (such as IP SAN and FC SAN).
+* New plug-ins can be developed for new hardware and be hot loaded to the system.
+* Device alarms are sent to FusionManager using Simple Network Management Protocol (SNMP).
+* Device maintenance operations are performed using Intelligent Platform Management Interface (IPMI) and SNMP protocols.
+
+**VPC Management**
+* Users can create their own VPCs in a VDC
+* Users canuse various network services, such as routers and virtual load balancers (VLBs) in a VPC
+* In tenant view, users can clearly view the VPC network topology, which facilitates VPC mintenance and management.
+* The VPC security management functions are implemented on firewalls:
+  * In hardware firewall networking, multiple virtual firewalls are created using the virtualization capability of the hardware firewall.
+  * The software firewall is similar to the hardware firewall, but the hardware uses Huawei's software virtualization solution to virtualize software firewalls. Each software firewall runs on one VM.
+* The router capability of the VPC is provided by firewalls or switches based on the actual physical networking.
