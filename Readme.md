@@ -651,3 +651,22 @@ A third party can also use FusionManager's open REST interfaces to perform secon
   * In hardware firewall networking, multiple virtual firewalls are created using the virtualization capability of the hardware firewall.
   * The software firewall is similar to the hardware firewall, but the hardware uses Huawei's software virtualization solution to virtualize software firewalls. Each software firewall runs on one VM.
 * The router capability of the VPC is provided by firewalls or switches based on the actual physical networking.
+
+***Automatic and Graphic Deployment of Applications Using Templates***
+
+# 7 FusionAccess Architecture Principles
+-----------------------------------------
+FusionAccess provides a GUI for administrators to provicion, maintain, and reclaim virtual desktops.
+The Huawei FusionCloud Desktop solution consists of FusionCompute, FusionManager, and FusionAccess.
+
+FusionAccess consists of three parts:
+  * The cloud platform provides virtual desktops for users.
+  * The desktop access component manages and assigns virtual desktops.
+  * Terminals connect users to virtual desktops.
+
+Asset management is implemented on ht management portal of the IT adapter (ITA).
+
+**User Access Control**
+* Users can view their own virtual desktops by using browsers.
+* Users can start, restart, and log in to their own virtual desktops.
+* FusionAccess manages the status of all virtual desktops.
