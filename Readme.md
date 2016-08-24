@@ -670,3 +670,60 @@ Asset management is implemented on ht management portal of the IT adapter (ITA).
 * Users can view their own virtual desktops by using browsers.
 * Users can start, restart, and log in to their own virtual desktops.
 * FusionAccess manages the status of all virtual desktops.
+
+**Desktop Transfer Protocols**
+* VMWare View use remote desktop display protocols as the HDP, RDP and PC over IP (PCoIP). HDP's performance leads the industry. It provides:
+  * requires low bandwidth
+  * Supports more peripherals
+  * Implements unified control by using a console
+  * Optimizes performance based on scenarios by setting policies on the Huawei Desktop Controller (HDC), for example, enabling the compression function to reduce the definition if bandwidth is insufficient, and disabling redirection of peripherals to VMs in high-security scenarios.
+
+### FusionAccess Architecture and Components
+![Relationships FusionAccess Components](image19.jpeg)
+
+**FusionAccess Components**
+* Terminal Components
+  * Hardware: TC
+  * Software: TCM
+* Desktop access components
+  * Software: HDC, License Server, WI, and Huawei Desktop Agent(HDA)
+  * Hardware: SVN, serving as LB and an AG
+* Automation management components
+  * Software: ITA
+* Desktop software management components
+  * Software: TSM (including the server Agent)
+* IT architecture components
+  * Software: activve directory (AD), Dynamic Host Configuration Protocol (DHCP), domain name server(DNS), and File server
+
+**Desktop Access Components**
+* *WI*
+  * The WI provides a web login page for users
+* *License Server*
+  * The license Server determines whether users'licenses are sufficiente when users access VMs through the HDP
+* *SVN*
+  * The SVN balances loads between WIs
+  * The SVN also serves as the HDP protocol gateway to isolate the intranet from the extranet and implement transmission encription
+* Huawei Desktop Controller (HDC)
+  * The HDC, as a core component of the desktop virtualization, stores the associations between virtual desktops (domain names) and users (domain accounts) and synchronizes the usage state and connection state of virtual desktops in real time
+  * During desktop access, the HDC provides VM access information for terminals
+* *HDA*
+  * The HDA is installed on VMs. It connects users to desktops by using the HDP and reports VM status and connections to the HDC
+
+**HDC**
+* The HDC provides thefollowing functions:
+  * Establishes and maintains mapping relationships between users and virtual desktops
+  * Provides access information for the WI during user access.
+  * Collects VM status and connection information from HDAs installed on VMs
+* Administrators create, provision, and maintain VMs on the ITA portal. The ITA invokes the interface provided by the HDC
+* The WI provides a web page for users to log in to VMs
+* The HDA is desktop agent software developed by Huawei. The HDA is installed on each users to log in to VMs
+* LDAP is short for Lightweight Directory Access Protocol. AD is a typical instance of the LDAP
+* The HDC is a core component of FusionAccess and dominates in the FusionAccess software architecture
+
+***Licenses can be purchased based on the number of users or concurrent users***
+
+***The HDA is isntalled on each user VM to connect a terminal and a VM***
+
+**WI**
+* WI is a web service that provides a web browser for users to log in to VMs
+* 
