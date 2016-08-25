@@ -695,7 +695,7 @@ Asset management is implemented on ht management portal of the IT adapter (ITA).
 * IT architecture components
   * Software: activve directory (AD), Dynamic Host Configuration Protocol (DHCP), domain name server(DNS), and File server
 
-**Desktop Access Components**
+##### **Desktop Access Components**
 * *WI*
   * The WI provides a web login page for users
 * *License Server*
@@ -726,4 +726,80 @@ Asset management is implemented on ht management portal of the IT adapter (ITA).
 
 **WI**
 * WI is a web service that provides a web browser for users to log in to VMs
-* 
+* After a user enters the domain username and password on the WI login page and passes authentication, the user can view the assigned VMs on the WI and clicks a VM to log in.
+
+**LB and AG**
+* The LB and AG share one hardware platform SVN and can be deployed together.
+* The LB and AG are logically independent of each other.
+  * The LB implements load balancing between WIs
+  * The AG serves as a desktop access gateway agent to isolate the intranet from the extranet
+* In small-scale scenarios with fewer than 600 VMs, software-based virtual load balancers (vLBs) and virtual access gateways (vAGs) can be deployed
+* SVN provides load balancing and gateway functions
+* The SVN is an application switch, which performs traffic analysis on specific applications to assign and optimize the network traffic of web applications at layer 4 to layer 7 intelligently and securely
+* The SVN provides two main functions: switching and security protection. the SVN processes HTTP access requests, provides load balancing for TCP based connections, ensures secure connections, and implements Network Address Translation (NAT)
+* The AG is a viirtual private network over Secure Sockets Layer (SSL VPN) devicce that provides applications securely based on SmartAccess control policies. Users can access any application or data anytime through the AG. Enterprise users can also access data center resources from an extranet through the AG. In addition, access control can be implemented based on various SmartAccess control policies. The AG also support user authentication, access policy settings, and NAT
+
+##### **Automation Management Components**
+
+**ITA and WIA**
+* The ITA and WIA are the same product and presented as the ITA. The Ita and WIA functions can be set as required.
+* The ITA provides standard functional interfaces for the IT Portal. VMs can be created, attached, deleted, and detached through the portal.
+* The WI starts and restarts VMs through the WIA.
+* The ITA or WIA serves aas a Tomcat-based web service. The ITA or WIA provides unified interfaces for the upper layer IT Portal and interfaces for the underlying HDC, FusionSphere, VMs, and DNSs.
+* The working principle of te WIA is: When detecting that a VM is shut down, the WI sends a VM start message to the WIA. After obtaining the VM ID from the message, the WIA sends a start command to FusionSphere.
+
+##### **Terminal Components**
+
+**TC**
+* A TC is a terminal used for desktop access. It's a mini PC.
+* The TC supports Linux and Windows WES OSs and also supports HDP- or RDP-based clients for user access.
+* When a user clicks a VM on the WI, the user can be automatically connected to the VM through an HDP-enabled terminal.
+
+**TCM**
+* A management server provides centralized management for TCs, including version upgrade, status management, information monitoring, and log management.
+* The management server can detect TCs to be managed automatically and manage them.
+
+###### **Application Virtualization Component**
+
+**SBC**
+* Server-Based Computing: publishes the application system clients (such as the OA and core services) that are installed on the background server to virtual delivery platform. When a user logs in to the platform to access a certain background application, the application system client runs on the platform, not on the user's local terminal.
+
+**Technical Features of SBC**
+* All applications are installed on the application server. Applications are sent to the client as streams and displayed on the client.
+
+### Basic FusionAccess Service processes
+
+**Accessing the WI**
+* The client accesses the LB by using the LB domain name. After receiving the access request, the SVN (LB) distributes the request to a WI based on the load balancing algorithm. the WI returns a login page to the client.
+* If the SVN or vLB is not deployed, the client directly accesses the wi. In this case, load balancing can be implemented between two WIs by configuring the round robin DNS.
+
+**Performing User Authentication**
+* A user enters the useername, password, and domain name (may be a default value) on the WI login page and clicks Login. The WI sends the account information to the HDC. Then the HDC authenticates the domain account on the AD.
+
+**Obtaining a VM list**
+After the domain account passes AD authentication, the HDC queries the VM list in the database and returns the VM list to the WI. The WI displays the VM list to the client.
+
+**Logging In to a Virtual Desktop**
+* The login information includes the Address Ticket, Login Ticket, and the IP address and port of the gateway.
+* A user clicks a VM from the VM list to log in. The login request is sent to the WI.
+* The WI obtains login information from the HDC, including the Address Ticket (VM IP address for intranet access), Login Ticket, and Launch Reference.
+* 1. The WI sends a request for querying login information to the HDC.
+* 2. The HDC queries the username, password, domain name, IP address, and reference of the VM in the database and returns the information to the WI.
+* 3. The WI determines an intranet or extranet connection based on its configuration information.
+  * For an intranet connection, the WI sends the username, password, and domain name to the STA to obtains a Login Ticket.
+  * For and extranet connection, the WI sends the username, password, domain name, and IP address of the VM to the STA to obtain a Login Ticket and an Address Ticket.
+* 4. The WI puts the VM IP address (or Address Ticket), Login ticket, and Launch Reference (indicates thee validity period of a connection) in a login file based on a template and sends the login file to the client.
+
+**Connecting to a Virtual Desktop**
+* The HDP client installed on the TC or SC parses the login information of the SVN and the  connection request.
+  * For an extranet connection, the login information contains the AG information of the SVN and the connection request is sent to the AG.
+  * For an Intranet connection, the login information containsthe VM IP address and the client directly connect to the VM based on the VM IP address.
+* When the SVN (AG) receives the connection request, it does not know the IP address of the VM to be connected. Therefore, the SVN sends the Adress Ticket to the HDC to obtain a real VM IP address. After obtaining the Real VM IP address, the SVN (AG) sends connection request to the HDA of the VM.
+* After receiving the connection request, the HDA needs to verify thee Login Ticket and license. If verification succeeds, the HDA logs in to the VM.
+* Login Ticket verification:
+  * The HDA obtains the Login Ticket from the request and sends it to the HDC by using the HDC ITicketing interface throudh which the HDA is registered.
+  * Then the HDC sends the Login Ticket to the STA to obtain the username, password, and domain name and returns the information to the HDA.
+* License verification:
+  * The HDC sends a request for querying wheter any available license exists to the License Server. The License Server checks the current usage of license and returns the result.
+
+### **Basic FusionAccess features**
