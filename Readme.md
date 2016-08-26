@@ -373,7 +373,7 @@ The appliance supports automatic deployment and pre-installation and 3000 VMs in
 The appliance supports automatic deployment and pre-installation and 3000 VMs in a
 cluster.
 
-# FusionCompute Architecture
+# 5 FusionCompute Architecture
 ----------------------------------------------------------
 ![FusionCompute](image11.jpeg)
 * Resource virtualization virtualizes physical resources. For example, one 2.4 GHz CPU can be virtualized to three vCPUs with the specifications of 1.2 GHz, 0,8 GHz, and 0.4 GHz, respectively for three VMs.
@@ -466,10 +466,10 @@ Differences between FT and HA:
 * The memory and network QoS mechanism are similar.
 
 **Architecture of NUMA Affinity-based Scheduling**
-* NUMA. Each physycal computer has multiple CPUs connected by a front side bus. The CPUs and the corresponding memory modules constitute a NUMA system.
+* NUMA. Each physical computer has multiple CPUs connected by a front side bus. The CPUs and the corresponding memory modules constitute a NUMA system.
 * A CPU and its interconnected memory constitute a node.
 * RAM. Random Access Memory.
-* NUMA nodes are introduced in physical servers to improve memory access efficiency of CPUs. A CPU can achieve its maximun memory access efficieny when accesing memory within its own NUMA node. But, if any VM OS or applcation requires a second NUMA node, the overall performance will deteriorate. In this case, Guest NUMA, and enhanced NUMA feature, enables that the NUMA topology is transparently transmitted to the VM and enables VM to preferably use memory resources on one NUMA node, thereby improving memory performance.
+* NUMA nodes are introduced in physical servers to improve memory access efficiency of CPUs. A CPU can achieve its maximum memory access efficiency when accessing memory within its own NUMA node. But, if any VM OS or applcation requires a second NUMA node, the overall performance will deteriorate. In this case, Guest NUMA, and enhanced NUMA feature, enables that the NUMA topology is transparently transmitted to the VM and enables VM to preferably use memory resources on one NUMA node, thereby improving memory performance.
 
 **GPU Hardware Virtualization**
 Technical Principle:
@@ -541,7 +541,7 @@ Differente hardware devices support different technologies for VMs to communicat
 As a mature open-source software product based on Xen, FusionCompute has made significant system simplification, security hardening, and function enhancement.
 Therefore, it consumes little resources and can be installed on a server with only 8 GB memory (48 GB is recommended) and 16 GB hard disk space.
 
-# FusionManager Architecture and Basic Principles
+# 6 FusionManager Architecture and Basic Principles
 --------------------------------------------------
 FusionManager resolves the preceding problems of Managing heterogeneous virtualization platforms, for example, Huawei's FusionCompute and VMware's vCenter.
 
@@ -802,4 +802,78 @@ After the domain account passes AD authentication, the HDC queries the VM list i
 * License verification:
   * The HDC sends a request for querying wheter any available license exists to the License Server. The License Server checks the current usage of license and returns the result.
 
-### **Basic FusionAccess features**
+### Basic FusionAccess features
+
+**Branch Office**
+* Each enterprise, apart from its headquarters, has many branch offices. for the branch desktop cloud, TCs can be deployed in branch offices. In the desktop cloud solution for the branch, service systems are deployed in the branch. This ensures sufficient bandwidth and short latency, and lowers requirements for the network between the headquarters and the branch.
+* The branch office feature supports the centralized O&M of dispersed virtual desktops, including hardware management and monitoring, virtual resource management and scheduling, unified alarming, unified operation logging, SSO, and TC management.
+* The branch office feature supports the centralized provisioning of virtual desktops, pprovisioning services for branch offices in a unified manner.
+* Services and maintenance operations in a branch are not affected when the network between the headquarters and the branch is interrupted.
+* A maximum of 20,000 VMs of branch offices can be centrally managed. up to 256 branch offices are supported. Each branch office support up to 500 VMs. Sub-branches are not supported. the network bandwith between the headquarters and the branch office must be higher than 2 Mbit/s. Only one VM in a branch office can be logged in using virtual network computing (VNC) on the management portal, because VNC login occupies 1.5 Mbit/s to 2 Mbit/s bandwidth.
+
+**Linked Clone**
+A shared read-only base volume provides the VM OS and space for VMs to store personalized data. this redduces required system disk space. The linked clone desktop pool provides unified costs and improves desktop maintenance efficiency.
+
+**Fingerprint Authentication**
+* It applies to virtual desktop logins and virtual application access.
+* Domain and fingerprint two-factor authentication:
+  * Before logging in to a virtual desktop using fingerprint, you need to register or modify the fingerprint on the WI login page. Fingerprint information is encrypted and stored on VMs and the fingerprint information of only one user can be registered on each VM. A maximum of 10 fingerprints can be registered for each account.
+  * A user can log in to the desktop cloud only after passing both fingerprint and domain account authentication. The user first enter the domain username and password on login page. Then, the user impresses the fingerprint and logs in to the VM if the fingerprint is also authenticated.
+* Application system authentication:
+  * You need to install the required fingerprint device to the virtual desktop system. The management of fingerprint scanners and the binding of applications are performed by the software of the virtual desktop system. The fingerprint encryption data is stored in the user virtual desktop system.
+
+**USB Key Authentication**
+After the USB key is bound with an account, the USB key can be used for virtual desktop login authentication, improving access security. SSO is supported.
+
+**GPU Hardware Virtualization**
+* Currently only NVIDIA K1 and K2 graphics cards support GPU hardware virtualization. Each CH221 blade or RH2288 V2 server supports one K1 or K2 graphics card.
+* The RH2288H V2 appliance does not support GPU hardware virtualization.
+* GPU hardware virtualization VMs do not support high availability (HA).
+
+**Full Memory Desktop**
+* full memory desktops not only have the advantages of linked clone desktops, but also have hight read/write performance. On full memory desktops, VMs can be started or restarted quickly.
+* Full memory desktops support unified VM template deployment, update, and restoration.
+* Full memory desktops can be quickly created and provisioned in batches.
+
+**Quick Provisioning of Virtual Desktops**
+* Quick provisioning of virtual desktops includes VM creation and assignment (binding).
+* Multiple types of VMs can be created, including full copy VMs and linked clone VMs.
+* You can set specifications, networks, disks, and naming rules during VM creation.
+* VMs can be assigned in one-to-one mode or pool mode. User information can be imported.
+
+**Virtual Desktop Management**
+* VM group: Each VM belongs to a VM group. The VM group information includes the VM group name, type (full copy or linked clone), and description.
+* Desktop group: Each VM belongs to a desktop group. The desktop group information includes the desktop group name, type (private or static pool desktops), and description.
+
+**Virtual Desktop System Management**
+* Other functions of the FusionAccess management system:
+  * Task center
+  * Statistics reports
+  * Operation logs
+
+# 8 FusionCloud Solution Deployment
+---------------------------------------
+
+### Overview
+**FusionCloud Solution Logical Architecture**
+* Huawei FusionCloud Solutions mainly consist of FusionCompute, FusionManager, and FusionAccess.
+* FusionCompute is deployed on the underlying hardware. You are advised to deploy VRM nodes in active/standby mode using VMs.
+* You are advised to deploy FusionManager in active/standby mode using VMs.
+* FusionAccess consists of multiple component, and all of them are deployed using VMs. Except for Loggeter, components are all deployed in active/standby mode.
+
+**Solution Deployment Process**
+* Solution design: Plans data for the management plane, storage plane, and service plane, designs system deployment modes are required network data, and plans nodes and data of software systems.
+* Hardware installation: configures hardware devices to meet virtualization software deployment requirements, and ensures communication among devices of different network planes.
+* Software deployment: Deploys FusionCompute, FusionManager, ultraVR, HyperDP, and other software as required.
+* Service data planning: Creates VMs of required specifications, adds domain users, configures VM and desktop groups as required.
+
+### Solution Planning and Design
+**Solution Design**
+* The architecture design plans requirements of all components and specifies necessary components:
+  * Functions: Specifies whether FusionCompute, FusionManager, Fusionaccess, UltraVR, HyperDP, and a third-party O&M system are required.
+  * Storage types: Specifies whether storage is required and the storage type to use, such as FC SAN, IP SAN, or FusionStorage. Specifies the storage networking type, such as GE, 10 GE, or FC and whether old storage devices are used.
+  * Networks: Specifies the networks required, such as the BMC plane, management plane, storage plane, service plane, backup and DR plane, and external networks.
+  * Backup and Dr: Specifies whether HyperDP, UltraVR, and VIS are required.
+
+### Hardware Configuration
+**Hardware Configuration Process**
