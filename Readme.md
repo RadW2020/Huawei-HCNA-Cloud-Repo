@@ -1,4 +1,4 @@
-This is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
+HThis is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
 
 The official material can be found [here][a7c749f4]
 
@@ -877,3 +877,69 @@ After the USB key is bound with an account, the USB key can be used for virtual 
 
 ### Hardware Configuration
 **Hardware Configuration Process**
+* *Network configuration*: Log in to the switch, configure VLAN and VLANIF, and configure ports as planned, ensuring communication within each plane and isolation among planes.
+* *Storage configuration*: Log into the Integrated Storage Manager (ISM) and:
+  * Configure the management IP address and service IP address.
+  * Create RAID group and divide LUNs.
+  * Create hosts and host group.
+  * Map LUNs to hosts or the host group.
+* *Server configuration*: Log into the server and configure BIOS and RAID.
+
+**Configuring Networks Devices**
+![Configuring Networks Devices](image20.jpeg)
+* The BMC plane: Specifies the network planes used by the host BMC network port. If the management plane and the BMC plane on the VRM node can communicate with each other, they can be combined as one.
+* The management plane: Used by the management system for managing all nodes in unified manner and managing planes used for communication among nodes.
+  * The following IP addresses use the management plane:
+    * IP addresses of the management network ports on hosts.
+    * IP addresses of VMs deployed on the management node.
+    * IP addresses of storage device controllers.
+  * You are advices to configure the eth0 port on host as the mangement network port. If a host has more than four network ports, configure both eth0 and eth1 as management network ports, and bind them as a pair of active/standby ports after FusionCompute is installed.
+
+**Configuring Storage Devices**
+* The general storage device configuration pprocess is as follows:
+  * Connect storage management ports to the switch management plane and configure IP addresses of related management network segments. Connect storage service ports to the switch storage plane and configure IP addresses of planned storage segments.
+  * Create RAIDs and set their names, levels, number of disks, and hot spare disks.
+  * Create hosts and host groups.
+  * Map LUNs to each host and host group.
+  * Configure initiators for hosts and hosts groups.
+* Data Store Requirements:
+  * One data store can be added to only one FusionCompute. If it is added to different FusionCompute systems, its data will be overwritten.
+  * When using a data store provided by a shared storage, add the data store to all hosts within one cluster to ensure thatVMs can be migrated within the cluster.
+  * To deploy management nodes on VMs, ensure that the data stores to be used by the VMs meet the requirements for the VM disk space.
+
+**Configuring Servers**
+* BMC: configure de IP addresses of the planned BMC segments.
+* BIOS: Configure Preboot Execution Environment (PXE) and Boot Order and enable the CPU virtualization function, such as VT-x.
+* RAID: Configure local disks as RAID.
+
+* In the FusionSphere Solution, requirements for server hardware are as follows:
+  * CPUs must support virtualization technology provided by Intel or AMD.
+  * To ensure smooth VM migration among hosts, you are advised to employ CPUs of the same model within a cluster.
+  * The memory size is greater than or equal to 8 GB. If a host is used for deploying management node VMs, its memory must be greater than or equal to 3 GB.
+* You are advised to enable Hard Disk, Network, and CD-ROM as boot devices on servers. Use Network to start the server for batch deployment. Use CD-ROM to start the server for small-scaled deployment. After the installation is complete, configure servers to start from Hard disk by default.
+* Configure local disks as RAID 1 to install the OS and service software on the server and improve data reliability. You are advised to configure local disk 1 and 2 as RAID1 and reconfigure 1 to 2 hot spare disks to prevent data loss.
+
+### Software Deployment
+#### FusionCompute installation
+![FusionCompute Architecture](image21.jpeg)
+* VRM nodes, the management nodes on FusionCompute, provide centralized virtual resource management on the management portal.
+* Hosts, or physical servers, provide computing resources for FusionCompute. When the storages uses local disks, the host provides storage resources as well.
+* A physical server with CNA node deployed on forms a computing node. Multiple computing nodes group into a resource cluster. (A management cluster is the one where management VMs on VRM nodes or FusionManager are located. A resource cluster is the one which contains user VMs only). Multiple clusters form a site. The management scope of one VRM node is the management scope of a site. Multiple VRM nodes can be cascaded to manage resources in multiple sites with unified portals.
+* Deployment rules:
+  * In virtualization deployment mode, VRM nodes are deployed on VMs created on specified hosts in management cluster. In physical deployment mode, VRM nodes are deployed on physical servers.
+  * If VRM nodes are deployed in active/standby mode, VRM nodes must be deployed on two hosts in management cluster.
+
+**FusionCompute Installation Flowchart**
+* Host installation:
+  * Configure local disk 1 and 2 as RAID 1.
+  * Install hosts in the batch deployment mode using PXE or install hosts manually using ISO image.
+* VRM installation:
+  * On VMs: you can use the FusionCompute installation wizard to deploy VRM nodes.
+  * On physical servers: You need to manually attach the ISO image and configure VRM nodes.
+
+**Installing CNA NodesUsing the ISO image**
+
+
+
+#### FusionManager installation
+#### FusionAccess installation
