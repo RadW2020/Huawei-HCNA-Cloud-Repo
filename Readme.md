@@ -384,7 +384,7 @@ cluster.
 ##### Improving Resource utilization
 Integration ratio: for example, 70 VMs are created on six blade servers, the integration ratio is 11:1 (round up 70/6).
 ##### Improving the availability
-High availability (HA). This feature minimizes the downtime caused byt routine maintenance.
+High Availability (HA). This feature minimizes the downtime caused byt routine maintenance.
 Fault Tolerance (FT) ensures an expected performance in the case of one or more failed components
 #### FusionCompute System Architecture
 * Virtual Resource Management (VRM)
@@ -896,7 +896,7 @@ After the USB key is bound with an account, the USB key can be used for virtual 
   * You are advices to configure the eth0 port on host as the mangement network port. If a host has more than four network ports, configure both eth0 and eth1 as management network ports, and bind them as a pair of active/standby ports after FusionCompute is installed.
 
 **Configuring Storage Devices**
-* The general storage device configuration pprocess is as follows:
+* The general storage device configuration process is as follows:
   * Connect storage management ports to the switch management plane and configure IP addresses of related management network segments. Connect storage service ports to the switch storage plane and configure IP addresses of planned storage segments.
   * Create RAIDs and set their names, levels, number of disks, and hot spare disks.
   * Create hosts and host groups.
@@ -950,7 +950,52 @@ After the USB key is bound with an account, the USB key can be used for virtual 
 * If hard disks and USB drives are both available on the host, the tool automatically installs the host OS on the USB drive.
 * If the number of hosts to be installed is greater than 10, the tool automatically installs 10 hosts as a batch, which usually takes a maximun of 20 minutes.
 
+**Installing the VRM Nodes Using the Installation Wizard**
+* Use the FusionCompute installation wizard to deploy VMs on the specified host using VRM template. VRM nodes deployed using VMs are easy to perform maintenance and do not use physical servers exclusively.
+* During the installation, a management cluster is automatically created and adds hosts, where VRM VMs locate, into the cluster. The Distributed Virtual Switch (DVS) and port groups on the management plane are also automatically created.
+* Host installation: Enter the host management IP address and root user password.
+* Storage type selection: Select the local storage and disks that has been configured as RAID 1.
+* Data store configuration: Select Local disk > FC SAN, and the system automatically adds the remaining space on the disk where the host is installed (if the host OS is installed on the disk), or on the first local storage (if the host OS is installed on an internal USB drive) as a non-virtualized data store to the host.
+* VRM VM configuration: To specify the management plane VLAN for VRM nodes, select Configure management VLAN in VLAN and set VLAN ID. If you do not need to specify the management plane VLAN, the system uses VLAN 0 by default as the management plane.
 
+* Active node name
+* Standby node name: Set it to a name that is different from the active node name.
+* Floating IP address: Entre the floating IP address of the active and standby VRM nodes.
+* Subnet mask.
+* Arbitration IP address 01: set it to the gateway of the management plane.
+* Arbitration IP address 02 and arbitration IP address 03: Set them to IP addresses of servers that can communicate with the management plane, such as the AD server or the DNS server, or management IP addresses of the host where each VRM peer node VM locates. These parameters are optional.
+* If all arbitration IP addresses become invalid, the two VRM nodes both work as standby nodes. Therefore, VRM noodes fails to manage the system. You are advised to modify the VRM arbitration IP address before it changes.
+
+
+**Installing VRM Nodes on Physical Servers**
+* The Network, hostname, Timezone, and Password need to be configured during the VRM configuration.
+* Use Partition by default. Keep the default setting of Partition. By default, VRM nodes are installed on the first specified disk which usually has been configured as RAID 1 disk.
+* LogServer sets the third-party directory for saving host logs. This parameter does not need to be set.
+* Before configuring VRM nodes in active/standby mode, ensure that bboth VRM nodes are powered on. During the configuration, do noot power them off. Otherwise, the  system will break down, and the VRM nodes have to be reinstalled.
+* Select System management > System Configuration > Service and management node on the FusionCompute portal. Enter the service and management node page.
+* Click Active/standby configuration on the right of VRM service in Service list. The dialog box is displayed.
 
 #### FusionManager installation
-#### FusionAccess installation
+
+**Install FusionManager in All-in-One Mode**
+![all in one mode](image22.jpeg)
+![all in one mode](image24.jpeg)
+* FusionManager centrally manages resources in all DCs. Virtualization software deployed in DCs can be either Huawei FusionCompute or VMware vCenter.
+
+* The FusionManager system connects to the business operation system and O&M system to implement functions of automatic application of resources or services and alarm reporting to the third-party O&M systems.
+
+**Install FusionManager in Top-Local Mode**
+![Top Local Mode](image23.jpeg)
+![top local Mode](image25.jpeg)
+* Local FusionManagers manage resources from DC 1 to DC N. Local FusionManagers interwork with the top FusionManager using REST interfaces. The top FusionManager and local FusionManagers manage DC resources by role, respectively.
+* Top FusionManager: It is deployed on a remote VM only in one DC and implements registration, deregistration, and cloud service management.
+* Local FusionManagers: They are deployed on local VMs in each DC to add, configure, monitor, and maintain resources.
+* The top FusionManager connects to the business operation system and automatically applies for resources or services. Both the local FusionManager and top FusionManager can connect to O&M systems to report alarms to third party O&M systems.
+* The virtualization  software deployed in DCs can be either Huawei FusionCompute or VMware vCenter.
+
+
+#### FusionAccess Installation
+![installation](image26.jpeg)
+
+
+### Service Data Configuration
