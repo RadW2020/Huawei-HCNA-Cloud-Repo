@@ -938,6 +938,17 @@ After the USB key is bound with an account, the USB key can be used for virtual 
   * On physical servers: You need to manually attach the ISO image and configure VRM nodes.
 
 **Installing CNA NodesUsing the ISO image**
+* Hard Drive, Network, Hostname, Timezone, Password, and DOM 0 setting need to be configured during host configuration.
+* LogServer, which sets the third-party directory for saving host logs, is configured only when the host OS is installed on the USB drive.
+* The installation takes about 10 minutes. After the installation, the server restarts automatically. When the login information is displayed, the host isntallation is complete.
+
+**Installing the CNA Nodes Using the Batch Deployment**
+* After the configuration of servers to start from the network, refresehd information about hosts will be displayed on the user interface of the tool.
+* The tool automatically presents the recommended configuration based on the IP address allocated to the host and the host reporting sequence. You can use the recommended configuration, or modify it based on the planned data to continue the installation.
+* If the recommended cofiguration is used, the IP address allocated during the installation process will be used as the host management plane IP address.
+* If multiple disks are installed on the host, the tool automatically installs the hosts OS on the first boot device.
+* If hard disks and USB drives are both available on the host, the tool automatically installs the host OS on the USB drive.
+* If the number of hosts to be installed is greater than 10, the tool automatically installs 10 hosts as a batch, which usually takes a maximun of 20 minutes.
 
 
 
