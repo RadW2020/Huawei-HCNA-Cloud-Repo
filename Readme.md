@@ -1,6 +1,6 @@
-HThis is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
+This is a self-made resume written while studying the material for the **HCNA-BCCP Huawei Certified Network Associate-Building Cloud Computing Platform**
 
-The official material can be found [here][a7c749f4]
+The official material can be found [here][a7c749f4].
 
   [a7c749f4]: http://support.huawei.com/learning/trainFaceDetailAction?lang=en&pbiPath=term1000025174&courseId=Node1000007639 "link to Huawei web"
 
@@ -45,12 +45,12 @@ traditional computer and network technologies.
 Deployment methods: private (organizations), public (telecom carrier), community (shared infraestructure) and hybrid cloud.
 
 ##### Bussiness models:
-  - infraestructure as a Service (IaaS).Processors, storage devices, networks.
+  - Infraestructure as a Service (IaaS). Processors, storage devices, networks.
   - Platform as a Service (PaaS). Application development platforms such as Java and .Net.
   - Software as a Service (SaaS). Applications wich run on cloud computing infraestructure. Such as CRM, ERP and OA.
 
 ##### Other concepts:
-  - Web 1.0 is the idea of users obtaining in*formation through web browsers.
+  - Web 1.0 is the idea of users obtaining information through web browsers.
   - Web 2.0 works the idea of let the users be creators and authors on the internet.
 
 ##### Key technologies:
@@ -999,3 +999,10 @@ After the USB key is bound with an account, the USB key can be used for virtual 
 
 
 ### Service Data Configuration
+![installation](image27.jpeg)
+
+![installation](image28.jpeg)
+
+![installation](image29.jpeg)
+
+![installation](image30.jpeg)
