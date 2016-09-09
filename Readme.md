@@ -4,6 +4,9 @@ The official material can be found [here][a7c749f4].
 
   [a7c749f4]: http://support.huawei.com/learning/trainFaceDetailAction?lang=en&pbiPath=term1000025174&courseId=Node1000007639 "link to Huawei web"
 
+
+
+
 ## Certification Main Objetives
 
 - Describe the basic concept and values of Cloud Computing
@@ -80,7 +83,7 @@ The virtualization supports scalability of servers:
 - Physical memory resources can be virtualized into more virtual memory resources.
 - The expansion of servers can be implemented using the PXE or an ISO file.
 - Cloud-based service systems employ batch VM deployment.
-- Resources can be deployed in large scale in short time.
+- - Resources can be deployed in large scale in short time.
 - Resources can be dynamically expanded and shrunk.
 - Less manual operations due to the automatic deployment.
 - Deployments times changes from a month to minutes.
@@ -112,7 +115,8 @@ Huawei cloud solutions supports:
 ##### cloud computing Application and examples
 ![cloud computing growth](image3.jpeg)
 
-- Amazon EC2 supports VM leasing used in Linux and Windows, data processing, and storage leasin- Microsoft azure provides the VM development platform Visual Studio, which is based on Windows server and Linux systems.
+- Amazon EC2 supports VM leasing used in Linux and Windows, data processing, and storage leasing.
+- Microsoft azure provides the VM development platform Visual Studio, which is based on Windows server and Linux systems.
 - Alibaba cloud server, Elastic Compute Service (ECS).
 
 ##### Huawei Cloud Computing Solutions
@@ -202,24 +206,23 @@ Definition:
 * Dynamic migration of VMs.
 
 ##### Large Layer 2 Network and Technology
-* Fiber Channel over Ethernet (FCoE) maps fiber channels (FCs) to Ethernet and inserts FC information to Ethernet packets. Dedicated FCs are not necessary.
+* Fiber Channel over Ethernet (FCoE) maps fiber channels (FCs) to Ethernet and inserts FC information to to Ethernet packets. Dedicated FCs are not necessary.
 * FCoE transmit over the same cable LAN and FC SAN data.
 * I/O integration maximizes return of investment (ROI).
 * Data Center Bridging (DCB) build a losless Ethernet network.
 * Both Ethernet and the FCoE protocol can run properly over Ethernet networks.
 
 
-* SPB: Shortest Path Bridging
+* SPB: Shosrtest Path Bridging
 * TRILL: Transparent Interconnection of Lots of Links
 
 Feature | SPB   | TRILL
----     |---    |---
-Camp    |  Huawei, Avaya, HP, Ericsson and AL | Cisco, Huawei, Brocade, HP, IBM
+--      |---    |--
+Camp    |  Huawei, Avaya, HP, Ericsson and AL | Cisco, Huawei, Brocade, HP, IBM  
 VM live migration  | supported  |  Supported
 Multi-tenant      | 16 million  (24bit) | 4000 (12bit)
 Convergence Speed  | Slow  | Fast
 Compatibility  | Not supported   | Supported  (with existing switches)
-
 
 ##### Virtual switching
 ![Virtual switching](image6.jpeg)
